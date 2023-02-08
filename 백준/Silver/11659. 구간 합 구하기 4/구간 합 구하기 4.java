@@ -8,9 +8,11 @@ public class Main {
 		
 	public static void main(String[] args)  throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		String [] arr = bf.readLine().split(" ");
 		int N = Integer.parseInt(arr[0]);
 		int M = Integer.parseInt(arr[1]);
+		
 		int [] sumList = new int[N+1];
 		int[] numbers = Stream.of(bf.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
 		
@@ -22,8 +24,8 @@ public class Main {
 			String [] arr2 = bf.readLine().split(" ");
 			int K = Integer.parseInt(arr2[0]);
 			int T = Integer.parseInt(arr2[1]);
-			System.out.println(sumList[T]-sumList[K-1]);
+			sb.append((sumList[T]-sumList[K-1])).append("\n");
 		}	
+		System.out.println(sb);
 	}
-
 }
