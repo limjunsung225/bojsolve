@@ -1,39 +1,46 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Main {
-	static boolean[] check = new boolean[26];
-	static String[] arr;
-	static int n, m, ans;
-	static int[] dx = { 0, 0, -1, 1 };
-	static int[] dy = { -1, 1, 0, 0 };
 
-	static void dfs(int row, int col, int cnt) {
-		ans = Math.max(ans, cnt);
-		for (int i = 0; i < 4; i++) {
-			int nx = row + dx[i], ny = col + dy[i];
-			if (nx < 0 || nx > n - 1 || ny < 0 || ny > m - 1 || check[arr[nx].charAt(ny)-'A'])
-				continue;
-			int next = arr[nx].charAt(ny)-'A';
-			check[next] = true;
-			dfs(nx, ny, cnt + 1);
-			check[next] = false;
-		}
+	  static int[] dx = {0, 0, 1, -1};
+	  static int[] dy = {1, -1, 0, 0};
+	  static int ans, next = 0;
+	  
+	  public static void dfs(String[] board, boolean[] check, int x, int y, int next) {
+	        if (ans < next) {
+	            ans = next;
+	        }
+	         
+	        for (int k=0; k<4; k++) {
+	            int nx = x+dx[k];
+	            int ny = y+dy[k];
+	            if (nx >= 0 && nx < board.length && ny >= 0 && ny < board[0].length()) {
+	                if (check[board[nx].charAt(ny)-'A'] == false) {
+	                	
+	                    check[board[nx].charAt(ny)-'A'] = true;
+	                    dfs(board, check, nx, ny, next+1);
+	                    check[board[nx].charAt(ny)-'A'] = false;
+	                    
+	                }
+	            }
+	        }
+	    }
+	 
+	    public static void main(String args[]) {
+	        Scanner sc = new Scanner(System.in);
+	        int n = sc.nextInt();
+	        int m = sc.nextInt();
+	        sc.nextLine();
+	        String[] board = new String[n];
+	        
+	        for (int i=0; i<n; i++) {
+	            board[i] = sc.nextLine();
+	        }
+	        
+	        boolean[] check = new boolean[26];
+	        check[board[0].charAt(0)-'A'] = true;
+	        
+	        dfs(board, check, 0,0,1);
+	        System.out.println(ans);
+	    }
 	}
-
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		n = Integer.parseInt(st.nextToken());
-		m = Integer.parseInt(st.nextToken());
-		arr = new String[n];
-		for (int i = 0; i < n; i++)
-			arr[i] = br.readLine();
-		check[arr[0].charAt(0) - 'A'] = true;
-		dfs(0, 0, 1);
-		System.out.println(ans);
-
-	}
-}
