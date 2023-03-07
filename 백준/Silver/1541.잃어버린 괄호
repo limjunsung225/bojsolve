@@ -1,0 +1,40 @@
+# [Sliver II] 잃어버린 괄호 - 1541 
+
+[문제 링크](https://www.acmicpc.net/problem/1541) 
+
+### 성능 요약
+
+메모리: 17612 KB, 시간: 208 ms
+
+### 분류
+
+그리디, 수학, 문자열 , 파싱
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String word = sc.next();
+		int result = Integer.MAX_VALUE;
+		String[] word_li = word.split("-");
+
+		for (int i = 0; i < word_li.length; i++) {
+			int temp = 0;
+			
+			String[] new_word_li = word_li[i].split("\\+"); // String[]에서 특수기호 몇가지  split할때
+			// 오류가 발생하기 때문에 앞에 백슬래쉬 두개를 넣어줘야함.
+
+			for (int j = 0; j < new_word_li.length; j++) {
+				temp += Integer.parseInt(new_word_li[j]);
+			}
+			if(result== Integer.MAX_VALUE) {
+				result = temp;
+			}else {
+				result -= temp;
+			}
+		}
+		System.out.println(result);
+	}
+}
