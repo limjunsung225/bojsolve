@@ -1,0 +1,41 @@
+# [Gold II] 피보나치수6 - 11444 
+
+[문제 링크](https://www.acmicpc.net/problem/11444 ) 
+
+
+### 분류
+
+이분 탐색
+
+
+
+import sys
+input= sys.stdin.readline
+
+def dynamic_matrix(cnt):
+    if cnt == 1: 
+        return matrix  
+    result = dynamic_matrix(cnt // 2)
+    if (cnt %  2) == 1: 
+        return dynamic(dynamic(result, result), matrix)
+    else: 
+        return dynamic(result, result)
+
+def dynamic(matrix1, matrix2):
+    result = [[0] * size for _ in range(size)]
+
+    for i in range(size):
+        for j in range(size):
+            for k in range(size):
+                result[i][j] += (matrix1[k][j] * matrix2[i][k]) % 1000000007
+
+    return result
+
+N  = int(input())
+size = 2
+matrix = [[1, 1], [1, 0]]
+
+if N>0:
+    print(dynamic_matrix(N)[0][1] % 1000000007)
+else:
+    print(0)
